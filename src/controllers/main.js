@@ -12,8 +12,11 @@ const mainController = {
       .catch((error) => console.log(error));
   },
   bookDetail: (req, res) => {
-    // Implement look for details in the database
-    res.render('bookDetail');
+    db.Book.findByPk(req.params.id, {include: [{association: "authors"}]})
+      .then((book)=> {
+         res.render('bookDetail', {book: book});
+      })
+    
   },
   bookSearch: (req, res) => {
     res.render('search', { books: [] });
