@@ -1,5 +1,6 @@
 const bcryptjs = require('bcryptjs');
 const db = require('../database/models');
+const { Op } = require("sequelize");
 
 const mainController = {
   home: (req, res) => {
@@ -21,10 +22,21 @@ const mainController = {
   bookSearch: (req, res) => {
     res.render('search', { books: [] });
   },
+  
   bookSearchResult: (req, res) => {
-    // Implement search by title
-    res.render('search');
+    db.Book.findAll({
+      where: {
+        title: {
+          [Op.like]: `%${req.body.title}%`
+        }
+      }
+    }).then(
+      (response) => {
+        res.render('search', { books: response })
+      }
+    );
   },
+
   deleteBook: (req, res) => {
     // Implement delete book
     res.render('home');

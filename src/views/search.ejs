@@ -24,7 +24,11 @@
 
 
     <div class="list-group">
-      
+      <% books.forEach(function(book) { %>
+        <a href="/books/detail/<%=book.id%>"><%= book.title %></a>
+        <img class="d-block" src="<%= book.cover %>" width="100"/>
+        <p><%=book.description%></p>
+      <% }) %>
     </div>
   </div>
 </div>
