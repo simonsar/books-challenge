@@ -53,7 +53,6 @@ const mainController = {
 
     db.Author.findByPk(req.params.id, {include: [{association: "books"}]})
     .then((booksByAuthor) => {
-        console.log('Aca estoy!!!!!!!!', booksByAuthor)
         res.render('authorBooks', { booksByAuthor});
       })
     
