@@ -85,27 +85,27 @@ const mainController = {
     // Implement edit book
     db.Book.findByPk(req.params.id)
             .then((book)=> {
-              res.render('editBook', {id: req.params.id})
+              res.render('editBook', {book:book})
             })
   },
   processEdit: (req, res) => {
     // Implement edit book
     let book = {
-      name: req.body.nombre,
-      price: req.body.precio,
-      description: req.body.descripcion,
+      title: req.body.title,
+      cover: req.body.cover,
+      description: req.body.description,
   };
-  db.Course.update(
-      product,
+  db.Book.update(
+      book,
   {
       where: {
-          id: req.params.id
+          book: req.params.id
       }
   })
 
-  res.redirect('/detalle/' + req.params.id);
-    res.render('home');
-  }
+  res.redirect('/books/detail/' + req.params.id);
+  
+}
 };
 
 module.exports = mainController;
