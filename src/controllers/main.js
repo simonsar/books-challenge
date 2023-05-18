@@ -50,7 +50,13 @@ const mainController = {
   },
   authorBooks: (req, res) => {
     // Implement books by author
-    res.render('authorBooks');
+
+    db.Author.findByPk(req.params.id, {include: [{association: "books"}]})
+    .then((booksByAuthor) => {
+        console.log('Aca estoy!!!!!!!!', booksByAuthor)
+        res.render('authorBooks', { booksByAuthor});
+      })
+    
   },
   register: (req, res) => {
     res.render('register');
@@ -78,10 +84,27 @@ const mainController = {
   },
   edit: (req, res) => {
     // Implement edit book
-    res.render('editBook', {id: req.params.id})
+    db.Book.findByPk(req.params.id)
+            .then((book)=> {
+              res.render('editBook', {id: req.params.id})
+            })
   },
   processEdit: (req, res) => {
     // Implement edit book
+    let book = {
+      name: req.body.nombre,
+      price: req.body.precio,
+      description: req.body.descripcion,
+  };
+  db.Course.update(
+      product,
+  {
+      where: {
+          id: req.params.id
+      }
+  })
+
+  res.redirect('/detalle/' + req.params.id);
     res.render('home');
   }
 };
