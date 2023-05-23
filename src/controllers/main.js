@@ -89,23 +89,34 @@ const mainController = {
             })
   },
   processEdit: (req, res) => {
-    // Implement edit book
-    let book = {
-      title: req.body.title,
-      cover: req.body.cover,
-      description: req.body.description,
-  };
-  db.Book.update(
-      book,
-  {
-      where: {
-          book: req.params.id
-      }
-  })
-
-  res.redirect('/books/detail/' + req.params.id);
-  
-}
+    // Implement edit book 
+    if(req.file){
+      db.Book.update({ 
+        title: req.body.title,
+        cover : req.file.filename,
+        description: req.body.description
+        },{
+            where: {
+              id: req.params.id
+            }
+          })
+          .then(()=>{
+            res.redirect('/books/detail/' + req.params.id)
+          }) 
+    }else{
+      db.Book.update({ 
+        title: req.body.title,
+        description: req.body.description
+        },{
+            where: {
+              id: req.params.id
+            }
+          })
+          .then(()=>{
+            res.redirect('/books/detail/' + req.params.id)
+          }) 
+    }
+  }
 };
 
 module.exports = mainController;
