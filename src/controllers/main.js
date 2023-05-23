@@ -39,8 +39,16 @@ const mainController = {
 
   deleteBook: (req, res) => {
     // Implement delete book
-    res.render('home');
+    db.Book.destroy({
+      where: {
+          id: req.params.id
+      }
+    }).then(()=>{
+      res.redirect('/');
+    
+    })
   },
+
   authors: (req, res) => {
     db.Author.findAll()
       .then((authors) => {
@@ -48,6 +56,7 @@ const mainController = {
       })
       .catch((error) => console.log(error));
   },
+
   authorBooks: (req, res) => {
     // Implement books by author
 
