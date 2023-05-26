@@ -3,6 +3,8 @@ const mainController = require('../controllers/main');
 const multer = require('multer');
 const path = require('path');
 const router = express.Router();
+const validationRegister = require('../middlewares/validationRegister');
+
 
 const storage = multer.diskStorage({
     destination: (req, file, cb)=>{
@@ -25,7 +27,7 @@ router.post('/books/search', mainController.bookSearchResult);
 router.get('/authors', mainController.authors);
 router.get('/authors/:id/books', mainController.authorBooks);
 router.get('/users/register', mainController.register);
-router.post('/users/register', mainController.processRegister);
+router.post('/users/register', validationRegister, mainController.processRegister);
 router.get('/users/login', mainController.login);
 router.post('/users/login', mainController.processLogin);
 router.delete('/books/:id', mainController.deleteBook);

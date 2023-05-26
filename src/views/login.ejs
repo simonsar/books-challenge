@@ -19,7 +19,7 @@
   
           <h1 class="text-white mb-4">Login </h1>
   
-          <form action="/users/login" method="POST" class="card" style="border-radius: 15px;">
+          <form action="/users/login" method="POST" class="card" id="form-login" style="border-radius: 15px;">
             <div class="card-body">
   
               <div class="row align-items-center pt-4 pb-3">
@@ -30,7 +30,7 @@
                 </div>
                 <div class="col-md-9 pe-5">
   
-                  <input type="email" name="email" class="form-control form-control-lg" placeholder="example@gmail.com" />
+                  <input type="email" name="email" id="email" class="form-control form-control-lg" placeholder="example@gmail.com" />
   
                 </div>
               </div>
@@ -45,12 +45,25 @@
                 </div>
                 <div class="col-md-9 pe-5">
   
-                  <input type="password" name="password" class="form-control form-control-lg" >
+                  <input type="password" name="password" id="password" class="form-control form-control-lg" >
   
                 </div>
               </div>
+
   
               <hr class="mx-n3">
+
+              
+                <% {if(error){%>
+                  <div>
+                    <%=error.msg%>
+                  </div>
+                <% }} %>
+
+                <div class="errors">
+                <ul></ul>    
+                </div>
+              
   
               <div class="px-5 py-4">
                 <button type="submit" class="btn btn-primary btn-lg">Login</button>
@@ -65,5 +78,6 @@
   </section>
 </div>
 <%- include('partials/footer.ejs') %>
+<script src="/js/validationFrontLogin.js"></script>
 </body>
 </html>
